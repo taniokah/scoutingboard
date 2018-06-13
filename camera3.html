@@ -30,7 +30,6 @@
     navigator.mediaDevices.enumerateDevices()
     .then(function(devices) {
       for (var i in devices) {
-        alert(devices[i].kind + " " + devices[i].label);
         if (devices[i].kind == "videoinput") {
           cameraData.push(devices[i]);
         }
@@ -67,7 +66,8 @@
     }
 
     function camera() {
-      changeCamera({sourceId: cameraData[cnt].deviceId});
+      alert(cnt + " " + cameraData[cnt].deviceId);
+      changeCamera({deviceId: cameraData[cnt].deviceId});
       cnt++;
       if (cnt == cameraData.length) {
         cnt = 0;
