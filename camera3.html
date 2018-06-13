@@ -30,7 +30,7 @@
     navigator.mediaDevices.enumerateDevices()
     .then(function(devices) {
       for (var i in devices) {
-        alert(devices[i]);
+        alert(devices[i].kind);
         if (devices[i].kind == "videoinput") {
           cameraData.push(devices[i]);
         }
