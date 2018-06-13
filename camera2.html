@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+    <title>Self Camera</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <!--<script src="index.js"></script>-->
+    <!--<link rel="stylesheet" href="reset.css" type="text/css" media="all">-->
+    <!--<link rel="stylesheet" href="index.css" type="text/css" media="all">-->
+</head>
+<body>
+<video id="myVideo" autoplay="1"></video>
+<!--<img id="chara" src="img/chara.png">-->
+<a id="push">撮影</a>
+<canvas id="myCanvas"></canvas>
+<script>
+//jQueryスタート
+$(function() {
+
+    //カメラ取得事前準備
+    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || window.navigator.mozGetUserMedia;
+    window.URL = window.URL || window.webkitURL;
+
+    //カメラ取得
+    var video = document.getElementById('myVideo');
+    var localStream = null;
+    navigator.getUserMedia({video: true, audio: false},
+        function(stream) { // for success case
+            console.log(stream);
+            video.src = window.URL.createObjectURL(stream);
+        },
+        function(err) { // for error case
+            console.log(err);
+        }
+    );
+
+    //撮影ボタンクリックイベント
+    $("#push").bind("click",function(){
+
+        //キャンバスの設定
+        var c, ctx, img;
+        c = document.getElementById("myCanvas");
+        c.width = 640;
+        c.height = 480;
+        ctx = c.getContext("2d");
+
+        //ビデオ描画
+        var video = document.getElementById("myVideo");
+        ctx.drawImage( video , 0 , 0 , 640 , 480 );
+
+        //キャラクター描画
+        var img = document.getElementById("chara");
+        ctx.drawImage(img, 0,0, img.width , img.height , 422 , 102 , img.width  , img.height );
+
+    });
+
+});
+</script>
+</body>
+</html>
