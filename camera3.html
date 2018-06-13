@@ -33,9 +33,11 @@
       navigator.getUserMedia(medias, successCallback, errorCallback);
       function successCallback(stream) {
         video.srcObject = stream;
+        alert("success");
       };
       function errorCallback(err) {
         alert(err);
+        alert("error");
       };
     }
 
