@@ -31,7 +31,6 @@
     .then(function(devices) {
       for (var i in devices) {
         if (devices[i].kind == "videoinput") {
-          alert(devices[i]);
           cameraData.push(devices[i]);
         }
       }
@@ -67,7 +66,6 @@
     }
 
     function camera() {
-      alert(cameraData[cnt]);
       changeCamera({sourceId: cameraData[cnt].deviceId});
       cnt++;
       if (cnt == cameraData.length) {
