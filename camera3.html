@@ -25,7 +25,25 @@
   <button id="chagne" onclick="camera()">camera</button>
   <canvas id="canvas"></canvas>
   <script>
-    var front = false;
+    var cnt = 0;
+    var cameraData = [];
+    navigator.mediaDevices.enumerateDevices()
+    .then(function(devices) {
+      for (var i in devices) {
+        if (devices[i].kind == "videoinput") {
+          alert(devices[i]);
+          cameraData.push(devices[i]);
+        }
+      }
+      if (cameraData.length == 0) {
+        alert("no camera");
+        return;
+      }
+      camera(); // start
+    })
+    .catch(function(err) {
+      console.log(err.name + ": " + error.message);
+    });
 
     function changeCamera(device) {
       const medias = {'audio' : false, 'video' : device},
@@ -49,16 +67,14 @@
     }
 
     function camera() {
-      if (front) {
-        changeCamera({'facingMode' : 'user'});
-        front = false;
-      } else {
-        changeCamera({'exact' : 'environment'});
-        front = true;
+      alert(cameraData[cnt]);
+      changeCamera({sourceId: cameraData[cnt].deviceId});
+      cnt++;
+      if (cnt == cameraData.length) {
+        cnt = 0;
       }
     }
 
-    camera(); // start
   </script>
 </body>
 </html>
