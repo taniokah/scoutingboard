@@ -188,23 +188,25 @@
 
       function mUp(e) {
           if (e.button === 0 || e.type === "touchend") {
+              var rect = e.target.getBoundingClientRect();
+              if (e.type === "mouseup") {
+                  var upX = ~~(e.clientX - rect.left);
+                  var upY = ~~(e.clientY - rect.top);
+              } else {
+                  var upX = ~~(e.changedTouches[0].clientX - rect.left);
+                  var upY = ~~(e.changedTouches[0].clientY - rect.top);
+              }
+              console.log(arrowColor + ": (" + downX + "," + downY + ") -> (" + upX + ", " + upY + ")");
+              var arrow = [arrowColor, downX, downY, upX, upY];
+              arrowList.push(arrow);
+              
               var img = new Image();
               img.src = canvasData;
               img.crossOrigin = "Anonymous";
+              img.removeEventListener("load", null, false);
               img.addEventListener("load", function() {
                   ctx.drawImage(img, 0, 0);
-                  var rect = e.target.getBoundingClientRect();
-                  if (e.type === "mouseup") {
-                      var upX = ~~(e.clientX - rect.left);
-                      var upY = ~~(e.clientY - rect.top);
-                  } else {
-                      var upX = ~~(e.changedTouches[0].clientX - rect.left);
-                      var upY = ~~(e.changedTouches[0].clientY - rect.top);
-                  }
                   draw(arrowColor, downX, downY, upX, upY);
-                  console.log(arrowColor + ": (" + downX + "," + downY + ") -> (" + upX + ", " + upY + ")");
-                  var arrow = [arrowColor, downX, downY, upX, upY];
-                  arrowList.push(arrow);
                   //arrowList.push(arrowColor + "," + downX + "," + downY + "," + upX + "," + upY + "\n");
                   canvasData = c.toDataURL();
                   c.style.backgroundImage = "url(" + canvasData + ")";
