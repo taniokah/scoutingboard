@@ -22,22 +22,22 @@
   <body>
   <video id="video" autoplay playsinline></video>
   <button id="push" onclick="push()">push</button>
+  <button id="chagne" onclick="change()">camera</button>
   <canvas id="canvas"></canvas>
   <script>
-    const medias = {audio : false, video : {
-            facingMode: "user"
-          }},
-          video  = document.getElementById("video");
+    var front = false;
 
-    navigator.getUserMedia(medias, successCallback, errorCallback);
-
-    function successCallback(stream) {
-      video.srcObject = stream;
-    };
-
-    function errorCallback(err) {
-      alert(err);
-    };
+    function changeCamera(device) {
+      const medias = {'audio' : false, 'video' : device},
+            video  = document.getElementById("video");
+      navigator.getUserMedia(medias, successCallback, errorCallback);
+      function successCallback(stream) {
+        video.srcObject = stream;
+      };
+      function errorCallback(err) {
+        alert(err);
+      };
+    }
 
     function push() {
       var c = document.getElementById("canvas");
@@ -47,6 +47,18 @@
       ctx = c.getContext("2d");
       ctx.drawImage(video, 0, 0, video.clientWidth, video.clientHeight);
     }
+
+    function camera() {
+      if (front) {
+        changeCamera({'facingMode' : 'user'});
+        front = false;
+      } else {
+        changeCamera({'exact' : 'environment'});
+        front = true;
+      }
+    }
+
+    camera(); // start
   </script>
 </body>
 </html>
