@@ -10,14 +10,19 @@
     margin: 0;
     background: #000;
   }
-
   #video {
     display: block;
     width: 80%;
   }
+  #canvas {
+    display: block;
+    width: 80%
+  }
   </style></head>
   <body>
   <video id="video" autoplay playsinline></video>
+  <button id="push" onclick="push()">push</button>
+  <canvas id="canvas"></canvas>
   <script>
     const medias = {audio : false, video : {
             facingMode: "user"
@@ -33,6 +38,15 @@
     function errorCallback(err) {
       alert(err);
     };
+
+    function push() {
+      var c = document.getElementById("canvas");
+      var video = document.getElementById("video");
+      c.width = video.clientWidth;
+      c.height = video.clientHeight;
+      ctx = c.getContext("2d");
+      ctx.drawImage(video, 0, 0, video.clientWidth, video.clientHeight);
+    }
   </script>
 </body>
 </html>
