@@ -22,7 +22,7 @@
   <body>
   <video id="video" autoplay playsinline></video>
   <button id="push" onclick="push()">push</button>
-  <button id="chagne" onclick="change()">camera</button>
+  <button id="chagne" onclick="camera()">camera</button>
   <canvas id="canvas"></canvas>
   <script>
     var front = false;
@@ -33,11 +33,9 @@
       navigator.getUserMedia(medias, successCallback, errorCallback);
       function successCallback(stream) {
         video.srcObject = stream;
-        alert("success");
       };
       function errorCallback(err) {
         alert(err);
-        alert("error");
       };
     }
 
