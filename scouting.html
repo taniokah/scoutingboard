@@ -91,15 +91,16 @@
   }
 
   function resize() {
-    image.style.width = window.innerWidth + "px";
-    image.style.height = (window.innerWidth * ratio) + "px";
+    var width = window.innerWidth > 640 ? 640 : window.innerWidth;
+    image.style.width = width + "px";
+    image.style.height = (width * ratio) + "px";
     image.style.background = "url(" + imageSrc + ") no-repeat center center";
     image.style.backgroundSize = "contain";
-    var arrow = ["size", 0, 0, window.innerWidth, window.innerWidth * ratio];
+    var arrow = ["size", 0, 0, width, width * ratio];
     arrowList.push(arrow);
 
-    canvas.setAttribute("width", window.innerWidth);
-    canvas.setAttribute("height", (window.innerWidth * ratio));
+    canvas.setAttribute("width", width);
+    canvas.setAttribute("height", (width * ratio));
     moveButtons();
     //clearData();
     redraw();
@@ -313,7 +314,8 @@
 
   function clearData() {
     arrowList = [];
-    var arrow = ["size", 0, 0, window.innerWidth, window.innerWidth * ratio];
+    var width = window.innerWidth > 640 ? 640 : window.innerWidth;
+    var arrow = ["size", 0, 0, width, width * ratio];
     arrowList.push(arrow);
     //alert("test");
     var c = canvas;
@@ -334,7 +336,8 @@
         break;
       }
     }
-    var arrow = ["size", 0, 0, window.innerWidth, window.innerWidth * ratio];
+    var width = window.innerWidth > 640 ? 640 : window.innerWidth;
+    var arrow = ["size", 0, 0, width, width * ratio];
     arrowList.push(arrow);
     redraw();
   }
@@ -347,8 +350,9 @@
       var widthRatio = 1;
       var heightRatio = 1;
       if (arrow[0] == 'size') {
-        wRatio = window.innerWidth / arrow[3];
-        hRatio = (window.innerWidth * ratio) / arrow[4];
+        var width = window.innerWidth > 640 ? 640 : window.innerWidth;
+        wRatio = width / arrow[3];
+        hRatio = (width * ratio) / arrow[4];
       } else {
         draw(arrow[0], arrow[1] * wRatio, arrow[2] * hRatio, arrow[3] * wRatio, arrow[4] * hRatio);
       }
