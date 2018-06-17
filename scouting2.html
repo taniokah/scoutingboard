@@ -72,8 +72,7 @@
   <video id="video" autoplay playsinline></video>
   <button id="push" onclick="push()">撮影</button>
   <button id="change" onclick="camera()">切替</button>
-  <button id="saveimg" onclick="saveImage()">画像</button>
-  <button id="savehtml" onclick="saveHtml()">保存</button>
+  <button id="save" onclick="save()">保存</button>
   <canvas id="canvas"></canvas>
 
   <script>
@@ -90,28 +89,24 @@
   var shape = null;
   var shadowFlag = true;
   var prevWidth = 0;
-  var groundImg = new Image();
 
-  groundImg.src = imageSrc;
-  groundImg.onload = function() {
-	  window.onload = function() {
-	    var element = new Image() ;
-	    element.onload = function () {
-	  		var width = element.naturalWidth;
-	  		var height = element.naturalHeight;
-	      ratio = height / width;
-	      resize();
-	      camera(); // start
+  window.onload = function() {
+    var element = new Image() ;
+    element.onload = function () {
+  		var width = element.naturalWidth;
+  		var height = element.naturalHeight;
+      ratio = height / width;
+      resize();
+      camera(); // start
 
-	      var canvasData = canvas.toDataURL();
-	      canvas.addEventListener('touchmove', event => {
-	          event.preventDefault();
-	      }, true);
-	      canvasArrow(canvas, ctx, arrowColor, shape, shadowFlag);
-	    }
-	    element.src = imageSrc;
-	  };
-  }
+      var canvasData = canvas.toDataURL();
+      canvas.addEventListener('touchmove', event => {
+          event.preventDefault();
+      }, true);
+      canvasArrow(canvas, ctx, arrowColor, shape, shadowFlag);
+    }
+    element.src = imageSrc;
+  };
 
   window.onresize = function () {
     resize();
@@ -400,13 +395,17 @@
   function startDownload() {
     var bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
     //var content = 'あいうえお,かきくけこ,さしすせそ';
-    var content = makedata();
+    var content = "";
+    for (arrow of arrowList) {
+      content += arrow + "\n";
+    }
     var blob = new Blob([ bom, content ], { "type" : "text/csv" });
     var now = new Date();
     var fileName = "" + now.getFullYear() + (now.getMonth() + 1) + now.getDate() + now.getHours() + now.getMinutes() + now.getSeconds() + ".csv";
     download(fileName, blob);
   }
-
+  </script>
+  <script>
   var front = true;
 
   function changeCamera(device) {
@@ -440,50 +439,14 @@
     }
   }
 
-  function saveImage() {
-	var base64 = getImageData();
-	var blob = Base64toBlob(base64);
-    var now = new Date();
-    var fileName = "" + now.getFullYear() + (now.getMonth() + 1) + now.getDate() + now.getHours() + now.getMinutes() + now.getSeconds() + ".png";
-    download(fileName, blob);
-  }
-
-  function getImageData() {
+  function save() {
     var type = "image/png";
     var canvas = document.getElementById("canvas");
-    return canvas.toDataURL(type);
-  }
-
-  function getSceneData() {
-	var canv = document.createElement('canvas');
-	canv.width = groundImg.width;
-	canv.height = groundImg.height;
-	var ctx = canv.getContext('2d');
-	ctx.drawImage(groundImg, 0, 0);
-
-    var c = canvas;
-	var arrowImg = new Image();
-	arrowImg.src = c.toDataURL();
-	ctx.drawImage(arrowImg, 0, 0, groundImg.width, groundImg.height);
-
-	var type = "image/png";
-    return canv.toDataURL(type);
-  }
-
-  function saveHtml() {
-  	var type = '<!doctype html>\n';
-  	var html = '<html lang="ja">\n';
-  	var head = '<head><title>Scene Memo</title></head>\n';
-  	var body = '<body>\n';
-  	var image = '<img src="' + getImageData() + '" style="width:300px;"></img>\n';
-  	var scene = '<img src="' + getSceneData() + '" style="width:300px;"></img>\n';
-    var content = makedata();
-  	var data = '<textarea style="width:300px;">' + content + '</textarea>';
-  	var finalize = '</body>\n</html>';
-	var blob = new Blob([type, html, image, scene, data, '</html>']);
-	var url = window.URL || window.webkitURL;
+	var base64 = canvas.toDataURL(type);
+	var blob = Base64toBlob(base64);
+    var link = document.createElement("a");
     var now = new Date();
-    var fileName = "" + now.getFullYear() + (now.getMonth() + 1) + now.getDate() + now.getHours() + now.getMinutes() + now.getSeconds() + ".html";
+    var fileName = "" + now.getFullYear() + (now.getMonth() + 1) + now.getDate() + now.getHours() + now.getMinutes() + now.getSeconds() + ".png";
     download(fileName, blob);
   }
 
@@ -512,14 +475,7 @@
 	var blob = new Blob([buf], { type: mime });
     return blob;
   }
-
-  function makedata() {
-    var content = "";
-    for (arrow of arrowList) {
-      content += arrow + "\n";
-    }
-    return content;
-  }
+	 
 
   function moveCamera() {
     var width = getWidth();
@@ -530,8 +486,7 @@
     var video = document.getElementById("video");
     var push = document.getElementById("push");
     var change = document.getElementById("change");
-    var saveimg = document.getElementById("saveimg");
-    var savehtml = document.getElementById("savehtml");
+    var save = document.getElementById("save");
     var canvas = document.getElementById("canvas");
     video.style.position = "absolute";
     video.style.top = (width * ratio + 40) + "px";
@@ -545,17 +500,13 @@
     push.style.top = (width * ratio + 45) + "px";
     push.style.left = width - 100 * ratio + "px";
     change.style.position = "absolute";
-    change.style.top = (width * ratio + 70) + "px";
+    change.style.top = (width * ratio + 75) + "px";
     change.style.left = width - 100 * ratio + "px";
-    saveimg.style.position = "absolute";
-    saveimg.style.top = (width * ratio + 95) + "px";
-    saveimg.style.left = width - 100 * ratio + "px";
-    savehtml.style.position = "absolute";
-    savehtml.style.top = (width * ratio + 120) + "px";
-    savehtml.style.left = width - 100 * ratio + "px";
+    save.style.position = "absolute";
+    save.style.top = (width * ratio + 105) + "px";
+    save.style.left = width - 100 * ratio + "px";
   }
   </script>
-  }
 
 </body>
 </html>
