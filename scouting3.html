@@ -480,16 +480,15 @@
     var content = makedata();
   	var data = '<textarea style="width:300px;">' + content + '</textarea>';
   	var finalize = '</body>\n</html>';
-    var page = type + html + body + image + scene + data + finalize;// + image + scene + data + finalize;
-  	//var blob = new Blob([type, html, image, scene, data, finalize]);
-  	//var url = window.URL || window.webkitURL;
-    //var now = new Date();
-    //var fileName = "" + now.getFullYear() + (now.getMonth() + 1) + now.getDate() + now.getHours() + now.getMinutes() + now.getSeconds() + ".html";
-    //download(fileName, blob);
-    //window.open(window.URL.createObjectURL(blob),'_blank');
+    var page = type + html + body + image + scene + data + finalize;
     var blob = new Blob([page], {type: 'text/html'});
+  	var url = window.URL || window.webkitURL;
+    var now = new Date();
+    var fileName = "" + now.getFullYear() + (now.getMonth() + 1) + now.getDate() + now.getHours() + now.getMinutes() + now.getSeconds() + ".html";
+    download(fileName, blob);
+    //window.open(window.URL.createObjectURL(blob),'_blank');
     //iframe.src = URL.createObjectURL(blob);
-    window.open(URL.createObjectURL(blob), '_blank');
+    //window.open(URL.createObjectURL(blob), '_blank');
   }
 
   function download(fileName, blob) {
