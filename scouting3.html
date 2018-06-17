@@ -471,7 +471,7 @@
   }
 
   function saveHtml() {
-  	var type = '<!doctype html>\n';
+  	var type = '<!DOCTYPE html>\n';
   	var html = '<html lang="ja">\n';
   	var head = '<head><title>Scene Memo</title></head>\n';
   	var body = '<body>\n';
@@ -480,12 +480,16 @@
     var content = makedata();
   	var data = '<textarea style="width:300px;">' + content + '</textarea>';
   	var finalize = '</body>\n</html>';
-	var blob = new Blob([type, html, image, scene, data, '</html>']);
-	var url = window.URL || window.webkitURL;
-    var now = new Date();
-    var fileName = "" + now.getFullYear() + (now.getMonth() + 1) + now.getDate() + now.getHours() + now.getMinutes() + now.getSeconds() + ".html";
+    var page = type + html + body + image + scene + data + finalize;// + image + scene + data + finalize;
+  	//var blob = new Blob([type, html, image, scene, data, finalize]);
+  	//var url = window.URL || window.webkitURL;
+    //var now = new Date();
+    //var fileName = "" + now.getFullYear() + (now.getMonth() + 1) + now.getDate() + now.getHours() + now.getMinutes() + now.getSeconds() + ".html";
     //download(fileName, blob);
-    window.open(window.URL.createObjectURL(blob),'_blank');
+    //window.open(window.URL.createObjectURL(blob),'_blank');
+    var blob = new Blob([page], {type: 'text/html'});
+    //iframe.src = URL.createObjectURL(blob);
+    window.open(URL.createObjectURL(blob), '_blank');
   }
 
   function download(fileName, blob) {
@@ -505,12 +509,12 @@
   {
     var tmp = base64.split(',');
     var data = atob(tmp[1]);
-	var mime = tmp[0].split(':')[1].split(';')[0];
-	var buf = new Uint8Array(data.length);
-	for (var i = 0; i < data.length; i++) {
+  	var mime = tmp[0].split(':')[1].split(';')[0];
+  	var buf = new Uint8Array(data.length);
+  	for (var i = 0; i < data.length; i++) {
         buf[i] = data.charCodeAt(i);
     }
-	var blob = new Blob([buf], { type: mime });
+  	var blob = new Blob([buf], { type: mime });
     return blob;
   }
 
