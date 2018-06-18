@@ -478,9 +478,7 @@
   	var image = '<img src="' + getImageData() + '" style="width:80%;"></img>\n';
   	var scene = '<img src="' + getSceneData() + '" style="width:80%;"></img>\n';
     var content = makedata();
-    var textheight = arrowList.length * 18;
-    textheight = textheight > groundImg.height ? groundImg.height : textheight;
-  	var data = '<textarea style="width:80%;height:' + textheight + 'px;">' + content + '</textarea>';
+  	var data = '<div style="width:80%;">' + content + '</div>';
   	var finalize = '</body>\n</html>';
     var page = type + html + body + image + scene + data + finalize;
     var blob = new Blob([page], {type: 'text/html'});
@@ -522,7 +520,7 @@
   function makedata() {
     var content = "";
     for (arrow of arrowList) {
-      content += arrow + "\n";
+      content += arrow + "<br>\n";
     }
     return content;
   }
