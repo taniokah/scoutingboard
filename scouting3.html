@@ -400,7 +400,7 @@
   function startDownload() {
     var bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
     //var content = 'あいうえお,かきくけこ,さしすせそ';
-    var content = makedata("");
+    var content = makedata("\n");
     var blob = new Blob([ bom, content ], { "type" : "text/csv" });
     var now = new Date();
     var fileName = "" + now.getFullYear() + (now.getMonth() + 1) + now.getDate() + now.getHours() + now.getMinutes() + now.getSeconds() + ".csv";
