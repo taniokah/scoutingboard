@@ -475,10 +475,10 @@
   	var html = '<html lang="ja">\n';
   	var head = '<head><title>Scene Memo</title></head>\n';
   	var body = '<body>\n';
-  	var image = '<img src="' + getImageData() + '" style="width:300px;"></img>\n';
-  	var scene = '<img src="' + getSceneData() + '" style="width:300px;"></img>\n';
+  	var image = '<img src="' + getImageData() + '" style="width:80%;"></img>\n';
+  	var scene = '<img src="' + getSceneData() + '" style="width:80%;"></img>\n';
     var content = makedata();
-  	var data = '<textarea style="width:300px;">' + content + '</textarea>';
+  	var data = '<textarea style="width:80%;">' + content + '</textarea>';
   	var finalize = '</body>\n</html>';
     var page = type + html + body + image + scene + data + finalize;
     var blob = new Blob([page], {type: 'text/html'});
