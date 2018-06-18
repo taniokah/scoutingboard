@@ -461,7 +461,7 @@
 	var ctx = canv.getContext('2d');
 	ctx.drawImage(groundImg, 0, 0);
 
-    var c = canvas;
+  var c = canvas;
 	var arrowImg = new Image();
 	arrowImg.src = c.toDataURL();
 	ctx.drawImage(arrowImg, 0, 0, groundImg.width, groundImg.height);
@@ -478,7 +478,9 @@
   	var image = '<img src="' + getImageData() + '" style="width:80%;"></img>\n';
   	var scene = '<img src="' + getSceneData() + '" style="width:80%;"></img>\n';
     var content = makedata();
-  	var data = '<textarea style="width:80%;">' + content + '</textarea>';
+    var textheight = arrowList.length * 18;
+    textheight = textheight > groundImg.height ? groundImg.height : textheight;
+  	var data = '<textarea style="width:80%;height:' + textheight + 'px;">' + content + '</textarea>';
   	var finalize = '</body>\n</html>';
     var page = type + html + body + image + scene + data + finalize;
     var blob = new Blob([page], {type: 'text/html'});
