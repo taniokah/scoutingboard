@@ -531,32 +531,62 @@
     //image.style.height = (width * ratio) + "px";
     //alert(width + " " + ratio);
 
-    var video = document.getElementById("video");
-    var push = document.getElementById("push");
-    var change = document.getElementById("change");
-    var saveimg = document.getElementById("saveimg");
-    var savehtml = document.getElementById("savehtml");
-    var canvas = document.getElementById("canvas");
-    video.style.position = "absolute";
-    video.style.top = (width * ratio + 40) + "px";
-    video.style.left = "10px";
-    video.style.width = width * 0.40 - 30 * ratio + "px";
-    canvas.style.position = "absolute";
-    canvas.style.top = (width * ratio + 40) + "px";
-    canvas.style.left = width * 0.40 - 30 * ratio + 10 + 12 + "px";
-    canvas.style.width = width * 0.40 - 30 * ratio + "px";
-    push.style.position = "absolute";
-    push.style.top = (width * ratio + 45) + "px";
-    push.style.left = width - 100 * ratio + "px";
-    change.style.position = "absolute";
-    change.style.top = (width * ratio + 70) + "px";
-    change.style.left = width - 100 * ratio + "px";
-    saveimg.style.position = "absolute";
-    saveimg.style.top = (width * ratio + 95) + "px";
-    saveimg.style.left = width - 100 * ratio + "px";
-    savehtml.style.position = "absolute";
-    savehtml.style.top = (width * ratio + 120) + "px";
-    savehtml.style.left = width - 100 * ratio + "px";
+    if ((window.innerHeight / window.innerWidth) > 0.6) {
+      var video = document.getElementById("video");
+      var push = document.getElementById("push");
+      var change = document.getElementById("change");
+      var saveimg = document.getElementById("saveimg");
+      var savehtml = document.getElementById("savehtml");
+      var canvas = document.getElementById("canvas");
+      video.style.position = "absolute";
+      video.style.top = (width * ratio + 40) + "px";
+      video.style.left = "10px";
+      video.style.width = width * 0.40 - 30 * ratio + "px";
+      canvas.style.position = "absolute";
+      canvas.style.top = (width * ratio + 40) + "px";
+      canvas.style.left = width * 0.40 - 30 * ratio + 10 + 12 + "px";
+      canvas.style.width = width * 0.40 - 30 * ratio + "px";
+      push.style.position = "absolute";
+      push.style.top = (width * ratio + 45) + "px";
+      push.style.left = width - 100 * ratio + "px";
+      change.style.position = "absolute";
+      change.style.top = (width * ratio + 70) + "px";
+      change.style.left = width - 100 * ratio + "px";
+      saveimg.style.position = "absolute";
+      saveimg.style.top = (width * ratio + 95) + "px";
+      saveimg.style.left = width - 100 * ratio + "px";
+      savehtml.style.position = "absolute";
+      savehtml.style.top = (width * ratio + 120) + "px";
+      savehtml.style.left = width - 100 * ratio + "px";
+    } else {
+      var video = document.getElementById("video");
+      var push = document.getElementById("push");
+      var change = document.getElementById("change");
+      var saveimg = document.getElementById("saveimg");
+      var savehtml = document.getElementById("savehtml");
+      var canvas = document.getElementById("canvas");
+      video.style.position = "absolute";
+      video.style.top = "30px";
+      video.style.left = width + 5 + "px";
+      video.style.width = width * 0.60 + "px";
+      canvas.style.position = "absolute";
+      canvas.style.top = 30 + (video.clientHeight + 12) + "px";
+      canvas.style.left = width + 5 + "px";
+      canvas.style.width = width * 0.60 + "px";
+      push.style.position = "absolute";
+      push.style.top = "0px";
+      push.style.left = "340px";
+      change.style.position = "absolute";
+      change.style.top = "0px";
+      change.style.left = "390px";
+      saveimg.style.position = "absolute";
+      saveimg.style.top = "0px";
+      saveimg.style.left = "440px";
+      savehtml.style.position = "absolute";
+      savehtml.style.top = "0px";
+      savehtml.style.left = "490px";
+    }
+
   }
   </script>
   }
