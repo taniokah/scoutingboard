@@ -400,7 +400,7 @@
   function startDownload() {
     var bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
     //var content = 'あいうえお,かきくけこ,さしすせそ';
-    var content = makedata();
+    var content = makedata("");
     var blob = new Blob([ bom, content ], { "type" : "text/csv" });
     var now = new Date();
     var fileName = "" + now.getFullYear() + (now.getMonth() + 1) + now.getDate() + now.getHours() + now.getMinutes() + now.getSeconds() + ".csv";
@@ -477,7 +477,7 @@
     var body = '<body>\n';
     var image = '<img src="' + getImageData() + '" style="width:80%;"></img>\n';
     var scene = '<img src="' + getSceneData() + '" style="width:80%;"></img>\n';
-    var content = makedata();
+    var content = makedata("<br>\n");
     var data = '<div style="width:80%;">' + content + '</div>';
     var finalize = '</body>\n</html>';
     var page = type + html + body + image + scene + data + finalize;
@@ -517,10 +517,10 @@
     return blob;
   }
 
-  function makedata() {
+  function makedata(br) {
     var content = "";
     for (arrow of arrowList) {
-      content += arrow + "<br>\n";
+      content += arrow + br;
     }
     return content;
   }
