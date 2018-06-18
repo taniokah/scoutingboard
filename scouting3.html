@@ -94,23 +94,23 @@
 
   groundImg.src = imageSrc;
   groundImg.onload = function() {
-	  window.onload = function() {
-	    var element = new Image() ;
-	    element.onload = function () {
-	  		var width = element.naturalWidth;
-	  		var height = element.naturalHeight;
-	      ratio = height / width;
-	      resize();
-	      camera(); // start
+    window.onload = function() {
+      var element = new Image() ;
+      element.onload = function () {
+        var width = element.naturalWidth;
+        var height = element.naturalHeight;
+        ratio = height / width;
+        resize();
+        camera(); // start
 
-	      var canvasData = canvas.toDataURL();
-	      canvas.addEventListener('touchmove', event => {
-	          event.preventDefault();
-	      }, true);
-	      canvasArrow(canvas, ctx, arrowColor, shape, shadowFlag);
-	    }
-	    element.src = imageSrc;
-	  };
+        var canvasData = canvas.toDataURL();
+        canvas.addEventListener('touchmove', event => {
+            event.preventDefault();
+        }, true);
+        canvasArrow(canvas, ctx, arrowColor, shape, shadowFlag);
+      }
+      element.src = imageSrc;
+    };
   }
 
   window.onresize = function () {
@@ -330,8 +330,8 @@
     clearData();
     var element = new Image();
     element.onload = function () {
-  		var width = element.naturalWidth;
-  		var height = element.naturalHeight;
+      var width = element.naturalWidth;
+      var height = element.naturalHeight;
       ratio = height / width;
       resize();
 
@@ -441,8 +441,8 @@
   }
 
   function saveImage() {
-	var base64 = getImageData();
-	var blob = Base64toBlob(base64);
+  var base64 = getImageData();
+  var blob = Base64toBlob(base64);
     var now = new Date();
     var fileName = "" + now.getFullYear() + (now.getMonth() + 1) + now.getDate() + now.getHours() + now.getMinutes() + now.getSeconds() + ".png";
     download(fileName, blob);
@@ -455,34 +455,34 @@
   }
 
   function getSceneData() {
-	var canv = document.createElement('canvas');
-	canv.width = groundImg.width;
-	canv.height = groundImg.height;
-	var ctx = canv.getContext('2d');
-	ctx.drawImage(groundImg, 0, 0);
+  var canv = document.createElement('canvas');
+  canv.width = groundImg.width;
+  canv.height = groundImg.height;
+  var ctx = canv.getContext('2d');
+  ctx.drawImage(groundImg, 0, 0);
 
   var c = canvas;
-	var arrowImg = new Image();
-	arrowImg.src = c.toDataURL();
-	ctx.drawImage(arrowImg, 0, 0, groundImg.width, groundImg.height);
+  var arrowImg = new Image();
+  arrowImg.src = c.toDataURL();
+  ctx.drawImage(arrowImg, 0, 0, groundImg.width, groundImg.height);
 
-	var type = "image/png";
+  var type = "image/png";
     return canv.toDataURL(type);
   }
 
   function saveHtml() {
-  	var type = '<!DOCTYPE html>\n';
-  	var html = '<html lang="ja">\n';
-  	var head = '<head><title>Scene Memo</title></head>\n';
-  	var body = '<body>\n';
-  	var image = '<img src="' + getImageData() + '" style="width:80%;"></img>\n';
-  	var scene = '<img src="' + getSceneData() + '" style="width:80%;"></img>\n';
+    var type = '<!DOCTYPE html>\n';
+    var html = '<html lang="ja">\n';
+    var head = '<head><title>Scene Memo</title></head>\n';
+    var body = '<body>\n';
+    var image = '<img src="' + getImageData() + '" style="width:80%;"></img>\n';
+    var scene = '<img src="' + getSceneData() + '" style="width:80%;"></img>\n';
     var content = makedata();
-  	var data = '<div style="width:80%;">' + content + '</div>';
-  	var finalize = '</body>\n</html>';
+    var data = '<div style="width:80%;">' + content + '</div>';
+    var finalize = '</body>\n</html>';
     var page = type + html + body + image + scene + data + finalize;
     var blob = new Blob([page], {type: 'text/html'});
-  	var url = window.URL || window.webkitURL;
+    var url = window.URL || window.webkitURL;
     var now = new Date();
     var fileName = "" + now.getFullYear() + (now.getMonth() + 1) + now.getDate() + now.getHours() + now.getMinutes() + now.getSeconds() + ".html";
     download(fileName, blob);
@@ -508,12 +508,12 @@
   {
     var tmp = base64.split(',');
     var data = atob(tmp[1]);
-  	var mime = tmp[0].split(':')[1].split(';')[0];
-  	var buf = new Uint8Array(data.length);
-  	for (var i = 0; i < data.length; i++) {
+    var mime = tmp[0].split(':')[1].split(';')[0];
+    var buf = new Uint8Array(data.length);
+    for (var i = 0; i < data.length; i++) {
         buf[i] = data.charCodeAt(i);
     }
-  	var blob = new Blob([buf], { type: mime });
+    var blob = new Blob([buf], { type: mime });
     return blob;
   }
 
@@ -531,7 +531,7 @@
     //image.style.height = (width * ratio) + "px";
     //alert(width + " " + ratio);
 
-    if ((window.innerHeight / window.innerWidth) > 0.5) {
+    if ((window.innerHeight / window.innerWidth) > 0.4) {
       var video = document.getElementById("video");
       var push = document.getElementById("push");
       var change = document.getElementById("change");
